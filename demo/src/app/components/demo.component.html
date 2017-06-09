@@ -1,0 +1,20 @@
+<div class="card mb-3">
+    <div class="card-header">LocalStorage Demo</div>
+    <div class="card-block">
+        <p>localValue: {{localValue | json}}</p>
+        <p>value: {{value | json}}</p>
+        <div class="mb-3">
+            <button type="button" (click)="get()" class="btn btn-primary btn-sm">get</button>
+            <button type="button" (click)="set()" class="btn btn-primary btn-sm">set</button>
+            <button type="button" (click)="set(5)" class="btn btn-primary btn-sm">set in 5 second expired!</button>
+            <button type="button" (click)="remove()" class="btn btn-primary btn-sm">remove</button>
+            <button type="button" (click)="clear()" class="btn btn-primary btn-sm">clear</button>
+        </div>
+    </div>
+</div>
+<div class="card mb-3">
+    <div class="card-header">SessionStorage Demo</div>
+    <div class="card-block">
+        <p>value: {{sessionValue | json}}</p>
+    </div>
+</div>
