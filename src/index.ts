@@ -1,4 +1,10 @@
-export { ExpiredUnit } from './core/util';
+import { NgModule } from "@angular/core";
+import { LocalStorageService, SessionStorageService } from './core/service';
+
 export { LocalStorage, SessionStorage } from './core/decorator';
 export { LocalStorageService, SessionStorageService } from './core/service';
-export { AngularWebStorageModule } from './core/module';
+
+@NgModule({
+    providers: [LocalStorageService, SessionStorageService]
+})
+export class AngularWebStorageModule { }

@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { HighlightJsModule } from 'ngx-highlight-js';
 
 import { AngularWebStorageModule } from 'angular-web-storage';
 
@@ -17,8 +16,7 @@ import { DemoComponent } from './components/demo.component';
     FormsModule,
     HttpModule,
     CommonModule,
-    HighlightJsModule,
-    
+
     AngularWebStorageModule
   ],
   declarations: [
