@@ -7,7 +7,7 @@ Angular decorator to save and restore of HTML5 Local&Session Storage
 
 ## Demo
 
-[Live Demo](https://cipchk.github.io/angular-web-storage/)
+[Live Demo](https://cipchk.github.io/angular-web-storage/) & [stackblitz](https://stackblitz.com/edit/angular-web-storage?file=app/demo/demo.component.ts)
 
 ### 1、Usage
 
