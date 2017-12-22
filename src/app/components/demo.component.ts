@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LocalStorageService, SessionStorageService, LocalStorage, SessionStorage } from 'angular-web-storage';
+import { LocalStorageService, SessionStorageService, LocalStorage, SessionStorage } from '../../../lib';
 
 @Component({
     selector: 'demo',
@@ -32,6 +32,16 @@ export class DemoComponent {
 
     clear() {
         this.local.clear();
+    }
+
+    batchSet() {
+        this.local.set(`batch_1`, 'a');
+        this.local.set(`batch_2`, 'b');
+        this.local.set(`batch_c`, 'c');
+    }
+
+    batchRemove() {
+        this.local.remove(/batch_\w+/);
     }
 
 }

@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 
-import { AngularWebStorageModule } from 'angular-web-storage';
+import { AngularWebStorageModule } from '../../lib';
 
 import { AppComponent } from './app.component';
 import { DemoComponent } from './components/demo.component';
@@ -27,5 +27,5 @@ import { DemoComponent } from './components/demo.component';
   bootstrap: [AppComponent]
 })
 
-export class AppDemoModule {
+export class AppModule {
 }
