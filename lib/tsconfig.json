@@ -1,38 +1,20 @@
 {
-  "compilerOptions": {
-    "outDir": "../dist",
-    "target": "es5",
-    "module": "es2015",
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "sourceMap": true,
-    "inlineSources": true,
-    "noImplicitAny": true,
-    "declaration": true,
-    "skipLibCheck": false,
-    "stripInternal": true,
-    "allowSyntheticDefaultImports": true,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "lib": ["dom", "es6"],
-    "types": [
-      "jasmine"
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+      "target": "es5",
+      "module": "es2015",
+      "sourceMap": false,
+      "moduleResolution": "node",
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "declaration": true,
+      "outDir": "../release",
+      "lib": ["es2015", "dom"]
+    },
+    "files": [
+      "./index.ts"
     ],
-    "typeRoots": [
-      "../node_modules/@types"
-    ]
-  },
-  "exclude": [
-    "node_modules"
-  ],
-  "files": [
-    "../scripts/typings.d.ts",
-    "./index.ts"
-  ],
-  "angularCompilerOptions": {
-    "genDir": "../temp/factories",
-    "strictMetadataEmit": true,
-    "skipTemplateCodegen": true
-  }
+    "angularCompilerOptions": {
+      "skipTemplateCodegen": true
+    }
 }
