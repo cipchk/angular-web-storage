@@ -59,7 +59,13 @@ export function LocalStorage(
  * sessionStorage 装饰器
  *
  * @param [key] 指定一个新key
+ * @param [expiredAt=0] 过期时间值，0表示在 `sessionStorage` 有效时期范围内永久有效。
+ * @param [expiredUnit='t'] 过期时间单位（默认：自定义[单位：毫秒]）
  */
-export function SessionStorage(key?: string) {
-  return WebStorage(sessionStorage, key);
+export function SessionStorage(
+  key?: string,
+  expiredAt: number = 0,
+  expiredUnit: ExpiredUnit = 't',
+) {
+  return WebStorage(sessionStorage, key, expiredAt, expiredUnit);
 }
