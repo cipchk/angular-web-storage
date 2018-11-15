@@ -1,6 +1,6 @@
 {
   "name": "angular-web-storage",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "Angular decorator to save and restore of HTML5 Local&Session Storage",
   "license": "MIT",
   "author": "cipchk",
