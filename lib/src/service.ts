@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { StorageUtil, ExpiredUnit } from './util';
+import { StorageUtil, ExpiredUnit, isBrowser } from './util';
 
 export class StorageService {
   constructor(private storage: Storage) {}
@@ -46,13 +46,13 @@ export class StorageService {
 @Injectable({ providedIn: 'root' })
 export class LocalStorageService extends StorageService {
   constructor() {
-    super(localStorage);
+    super(isBrowser ? localStorage : null);
   }
 }
 
 @Injectable({ providedIn: 'root' })
 export class SessionStorageService extends StorageService {
   constructor() {
-    super(sessionStorage);
+    super(isBrowser ? sessionStorage : null);
   }
 }
