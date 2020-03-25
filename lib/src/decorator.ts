@@ -1,4 +1,4 @@
-import { ExpiredUnit, StorageUtil } from './util';
+import { ExpiredUnit, StorageUtil, isBrowser } from './util';
 
 interface ICache {
   [key: string]: boolean;
@@ -41,31 +41,29 @@ function WebStorage(
 }
 
 /**
- * localStorage 装饰器
+ * `localStorage` Decorator
  *
- * @param [key] 指定一个新key
- * @param [expiredAt=0] 过期时间值，0表示永久有效。
- * @param [expiredUnit='t'] 过期时间单位（默认：自定义[单位：毫秒]）
+ * @param [expiredAt=0] Expiration time, 0 means forever
+ * @param [expiredUnit='t'] Expiration time unit (default: custom [unit: ms])
  */
 export function LocalStorage(
   key?: string,
   expiredAt: number = 0,
   expiredUnit: ExpiredUnit = 't',
 ) {
-  return WebStorage(localStorage, key, expiredAt, expiredUnit);
+  return WebStorage(isBrowser ? localStorage : null, key, expiredAt, expiredUnit);
 }
 
 /**
- * sessionStorage 装饰器
+ * `sessionStorage` Decorator
  *
- * @param [key] 指定一个新key
- * @param [expiredAt=0] 过期时间值，0表示在 `sessionStorage` 有效时期范围内永久有效。
- * @param [expiredUnit='t'] 过期时间单位（默认：自定义[单位：毫秒]）
+ * @param [expiredAt=0] Expiration time, 0 means forever
+ * @param [expiredUnit='t'] Expiration time unit (default: custom [unit: ms])
  */
 export function SessionStorage(
   key?: string,
   expiredAt: number = 0,
   expiredUnit: ExpiredUnit = 't',
 ) {
-  return WebStorage(sessionStorage, key, expiredAt, expiredUnit);
+  return WebStorage(isBrowser ? sessionStorage : null, key, expiredAt, expiredUnit);
 }

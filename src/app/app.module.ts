@@ -1,7 +1,5 @@
-import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 
@@ -14,7 +12,6 @@ import { DemoComponent } from './components/demo.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
     CommonModule,
 
     AngularWebStorageModule,
