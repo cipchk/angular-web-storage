@@ -1,4 +1,4 @@
-import { TestBed, inject, fakeAsync, tick, async } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 import { AngularWebStorageModule } from '../index';
 import { LocalStorageService, SessionStorageService } from './service';
 
@@ -64,7 +64,6 @@ describe('service', () => {
       }, 100);
     });
   });
-
   describe('sessionStorage', () => {
     let service: SessionStorageService;
     const KEY = 'test_key';
