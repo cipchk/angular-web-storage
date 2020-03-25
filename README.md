@@ -13,6 +13,7 @@ Angular decorator to save and restore of HTML5 Local&Session Storage
 
 - Angular 6 `3.x`
 - Angular 7 `4.x`
+- Angular 9 `9.x`
 
 ### 1、Usage
 
