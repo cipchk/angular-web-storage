@@ -9,15 +9,8 @@ import { AppComponent } from './app.component';
 import { DemoComponent } from './components/demo.component';
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    FormsModule,
-    CommonModule,
-
-    AngularWebStorageModule,
-  ],
+  imports: [BrowserModule, FormsModule, CommonModule, AngularWebStorageModule],
   declarations: [AppComponent, DemoComponent],
-  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

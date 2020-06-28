@@ -1,8 +1,9 @@
 # angular-web-storage
+
 Angular decorator to save and restore of HTML5 Local&Session Storage
 
 [![NPM version](https://img.shields.io/npm/v/angular-web-storage.svg)](https://www.npmjs.com/package/angular-web-storage)
-[![Build Status](https://travis-ci.org/cipchk/angular-web-storage.svg?branch=master)](https://travis-ci.org/cipchk/angular-web-storage)
+![Ci](https://github.com/cipchk/angular-web-storage/workflows/Ci/badge.svg)
 
 ## Demo
 
@@ -14,6 +15,7 @@ Angular decorator to save and restore of HTML5 Local&Session Storage
 - Angular 6 `3.x`
 - Angular 7 `4.x`
 - Angular 9 `9.x`
+- Angular 10 `10.x`
 
 ### 1、Usage
 
@@ -21,22 +23,6 @@ install `angular-web-storage` from `npm`
 
 ```
 npm install angular-web-storage --save
-```
-
-Import the `AngularWebStorageModule` in your module.
-
-```typescript
-import { AngularWebStorageModule } from 'angular-web-storage';
-
-@NgModule({
-    imports: [ 
-        BrowserModule,
-        AngularWebStorageModule
-    ],
-    declarations: [AppComponent],
-    bootstrap: [AppComponent]
-})
-export class AppModule { }
 ```
 
 ### 2、Examples
@@ -52,12 +38,10 @@ import { LocalStorageService, SessionStorageService, LocalStorage, SessionStorag
     templateUrl: './demo.component.html'
 })
 export class DemoComponent {
-
-    @LocalStorage() localValue: Object = { text: `Hello ${+new Date}`};
-    // 设置存储KEY，以及10个小时后过期
-    @LocalStorage('newKey', 10, 'h') localValue2: Object = { text: `Hello ${+new Date}`};
-    @SessionStorage() sessionValue: string = `Hello ${+new Date}`;
-
+  @LocalStorage() localValue: Object = { text: `Hello ${+new Date}`};
+  // 设置存储KEY，以及10个小时后过期
+  @LocalStorage('newKey', 10, 'h') localValue2: Object = { text: `Hello ${+new Date}`};
+  @SessionStorage() sessionValue: string = `Hello ${+new Date}`;
 }
 ```
 
@@ -72,27 +56,26 @@ import { LocalStorageService, SessionStorageService, LocalStorage, SessionStorag
     templateUrl: './demo.component.html'
 })
 export class DemoComponent {
+  constructor(private local: LocalStorageService, private session: SessionStorageService) { }
 
-    constructor(public local: LocalStorageService, public session: SessionStorageService) { }
+  KEY = 'value';
+  value: any = null;
 
-    KEY = 'value';
-    value: any = null;
+  set(expired: number = 0) {
+    this.local.set(this.KEY, { a: 1, now: +new Date }, expired, 's');
+  }
 
-    set(expired: number = 0) {
-        this.local.set(this.KEY, { a: 1, now: +new Date }, expired, 's');
-    }
+  remove() {
+    this.local.remove(this.KEY);
+  }
 
-    remove() {
-        this.local.remove(this.KEY);
-    }
+  get() {
+    this.value = this.local.get(this.KEY);
+  }
 
-    get() {
-        this.value = this.local.get(this.KEY);
-    }
-
-    clear() {
-        this.local.clear();
-    }
+  clear() {
+    this.local.clear();
+  }
 }
 
 ```

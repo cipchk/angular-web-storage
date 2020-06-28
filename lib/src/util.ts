@@ -18,12 +18,14 @@ export type ExpiredUnit = 's' | 'm' | 'h' | 'd' | 'w' | 'y' | 't';
 export const isBrowser = typeof document === 'object' && !!document;
 
 export class StorageUtil {
-  static get(storage: Storage | null, key: string) {
+  static get(storage: Storage | null, key: string): any {
     if (storage == null) {
       return null;
     }
     const value = StorageUtil.parse(storage.getItem(key) || 'null') || null;
-    if (value === null) return null;
+    if (value === null) {
+      return null;
+    }
     if (
       typeof value === 'object' &&
       typeof value._expired !== 'undefined' &&
@@ -43,9 +45,9 @@ export class StorageUtil {
     value: any,
     expiredAt: number = 0,
     expiredUnit: ExpiredUnit = 't',
-  ) {
+  ): void {
     if (storage == null) {
-      return ;
+      return;
     }
     storage.setItem(
       key,
@@ -56,22 +58,24 @@ export class StorageUtil {
     );
   }
 
-  static remove(storage: Storage | null, key: string) {
+  static remove(storage: Storage | null, key: string): void {
     if (storage == null) {
-      return ;
+      return;
     }
     storage.removeItem(key);
   }
 
-  static key(storage: Storage | null, index: number) {
+  static key(storage: Storage | null, index: number): string {
     if (storage == null) {
-      return ;
+      return;
     }
     return storage.key(index);
   }
 
   private static getExpired(val: number, unit: ExpiredUnit): number {
-    if (val <= 0) return 0;
+    if (val <= 0) {
+      return 0;
+    }
     const now = +new Date();
     switch (unit) {
       case 's': // 秒
@@ -92,11 +96,11 @@ export class StorageUtil {
     return 0;
   }
 
-  private static stringify(value: any) {
+  private static stringify(value: any): string {
     return JSON.stringify(value);
   }
 
-  private static parse(text: string) {
+  private static parse(text: string): any {
     try {
       return JSON.parse(text) || null;
     } catch (e) {

@@ -29,11 +29,9 @@ describe('service', () => {
       });
     });
 
-    beforeEach(
-      inject([LocalStorageService], (_s: LocalStorageService) => {
-        service = _s;
-      }),
-    );
+    beforeEach(inject([LocalStorageService], (_s: LocalStorageService) => {
+      service = _s;
+    }));
 
     it(`should set result to 1 by called [set]`, () => {
       const value = 1;
@@ -86,11 +84,9 @@ describe('service', () => {
       });
     });
 
-    beforeEach(
-      inject([SessionStorageService], (_s: SessionStorageService) => {
-        service = _s;
-      }),
-    );
+    beforeEach(inject([SessionStorageService], (_s: SessionStorageService) => {
+      service = _s;
+    }));
 
     it(`should set result to 1 by called [set]`, () => {
       const value = 1;
