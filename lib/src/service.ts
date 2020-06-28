@@ -5,7 +5,7 @@ import { StorageUtil, ExpiredUnit, isBrowser } from './util';
 export class StorageService {
   constructor(private storage: Storage) {}
 
-  get(key: string) {
+  get(key: string): any {
     return StorageUtil.get(this.storage, key);
   }
 
@@ -14,7 +14,7 @@ export class StorageService {
     value: any,
     expiredAt: number = 0,
     expiredUnit: ExpiredUnit = 'd',
-  ) {
+  ): void {
     return StorageUtil.set(this.storage, key, value, expiredAt, expiredUnit);
   }
 
@@ -24,7 +24,7 @@ export class StorageService {
    * - `remove(/BMap_\w+/)` 批量删除所有 BMap_ 开头的键
    * @param key 键名或正则表达式
    */
-  remove(key: string | RegExp) {
+  remove(key: string | RegExp): void {
     if (typeof key === 'string') {
       StorageUtil.remove(this.storage, key);
       return;
@@ -33,13 +33,15 @@ export class StorageService {
     let next = StorageUtil.key(this.storage, index);
     const ls: string[] = [];
     while (next) {
-      if (key.test(next)) ls.push(next);
+      if (key.test(next)) {
+        ls.push(next);
+      }
       next = StorageUtil.key(this.storage, ++index);
     }
-    ls.forEach(v => StorageUtil.remove(this.storage, v));
+    ls.forEach((v) => StorageUtil.remove(this.storage, v));
   }
 
-  clear() {
+  clear(): void {
     this.storage.clear();
   }
 }

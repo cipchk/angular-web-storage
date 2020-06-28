@@ -11,10 +11,10 @@ import {
   templateUrl: './demo.component.html',
 })
 export class DemoComponent {
-  @LocalStorage() localValue: Object = { text: `Hello ${+new Date()}` };
+  @LocalStorage() localValue = { text: `Hello ${+new Date()}` };
   // 设置存储KEY，以及10个小时后过期
   @LocalStorage('newKey', 10, 'h')
-  localValue2: Object = { text: `Hello ${+new Date()}` };
+  localValue2 = { text: `Hello ${+new Date()}` };
   @SessionStorage() sessionValue = `Hello ${+new Date()}`;
 
   constructor(
@@ -25,29 +25,29 @@ export class DemoComponent {
   KEY = 'value';
   value: any = null;
 
-  set(expired: number = 0) {
+  set(expired: number = 0): void {
     this.local.set(this.KEY, { a: 1, now: +new Date() }, expired, 's');
   }
 
-  remove() {
+  remove(): void {
     this.local.remove(this.KEY);
   }
 
-  get() {
+  get(): void {
     this.value = this.local.get(this.KEY);
   }
 
-  clear() {
+  clear(): void {
     this.local.clear();
   }
 
-  batchSet() {
+  batchSet(): void {
     this.local.set(`batch_1`, 'a');
     this.local.set(`batch_2`, 'b');
     this.local.set(`batch_c`, 'c');
   }
 
-  batchRemove() {
+  batchRemove(): void {
     this.local.remove(/batch_\w+/);
   }
 }
