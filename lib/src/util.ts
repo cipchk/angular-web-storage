@@ -26,12 +26,7 @@ export class StorageUtil {
     if (value === null) {
       return null;
     }
-    if (
-      typeof value === 'object' &&
-      typeof value._expired !== 'undefined' &&
-      value._expired !== 0 &&
-      +new Date() > value._expired
-    ) {
+    if (typeof value === 'object' && typeof value._expired !== 'undefined' && value._expired !== 0 && +new Date() > value._expired) {
       StorageUtil.remove(storage, key);
       return null;
     }
@@ -39,13 +34,7 @@ export class StorageUtil {
     return value._value || null;
   }
 
-  static set(
-    storage: Storage | null,
-    key: string,
-    value: any,
-    expiredAt: number = 0,
-    expiredUnit: ExpiredUnit = 't',
-  ): void {
+  static set(storage: Storage | null, key: string, value: any, expiredAt: number = 0, expiredUnit: ExpiredUnit = 't'): void {
     if (storage == null) {
       return;
     }
@@ -65,9 +54,9 @@ export class StorageUtil {
     storage.removeItem(key);
   }
 
-  static key(storage: Storage | null, index: number): string {
+  static key(storage: Storage | null, index: number): string | null {
     if (storage == null) {
-      return;
+      return null;
     }
     return storage.key(index);
   }

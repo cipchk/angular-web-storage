@@ -3,18 +3,13 @@ import { StorageUtil, ExpiredUnit, isBrowser } from './util';
 
 @Injectable()
 export class StorageService {
-  constructor(private storage: Storage) {}
+  constructor(private storage: Storage | null) {}
 
   get(key: string): any {
     return StorageUtil.get(this.storage, key);
   }
 
-  set(
-    key: string,
-    value: any,
-    expiredAt: number = 0,
-    expiredUnit: ExpiredUnit = 'd',
-  ): void {
+  set(key: string, value: any, expiredAt: number = 0, expiredUnit: ExpiredUnit = 'd'): void {
     return StorageUtil.set(this.storage, key, value, expiredAt, expiredUnit);
   }
 
@@ -42,7 +37,7 @@ export class StorageService {
   }
 
   clear(): void {
-    this.storage.clear();
+    this.storage?.clear();
   }
 }
 

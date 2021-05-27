@@ -6,8 +6,8 @@ interface ICache {
 const cache: ICache = {};
 
 function WebStorage(
-  storage: Storage,
-  key: string,
+  storage: Storage | null,
+  key?: string,
   expiredAt: number = 0,
   expiredUnit: ExpiredUnit = 'd',
 ): (target: {}, propertyName: string) => void {
@@ -21,13 +21,7 @@ function WebStorage(
         if (!cache[key as string]) {
           const storedValue = StorageUtil.get(storage, key as string);
           if (storedValue === null) {
-            StorageUtil.set(
-              storage,
-              key as string,
-              value,
-              expiredAt,
-              expiredUnit,
-            );
+            StorageUtil.set(storage, key as string, value, expiredAt, expiredUnit);
           }
           cache[key as string] = true;
           return;
@@ -51,12 +45,7 @@ export function LocalStorage(
   expiredAt: number = 0,
   expiredUnit: ExpiredUnit = 't',
 ): (target: {}, propertyName: string) => void {
-  return WebStorage(
-    isBrowser ? localStorage : null,
-    key,
-    expiredAt,
-    expiredUnit,
-  );
+  return WebStorage(isBrowser ? localStorage : null, key, expiredAt, expiredUnit);
 }
 
 /**
@@ -70,10 +59,5 @@ export function SessionStorage(
   expiredAt: number = 0,
   expiredUnit: ExpiredUnit = 't',
 ): (target: {}, propertyName: string) => void {
-  return WebStorage(
-    isBrowser ? sessionStorage : null,
-    key,
-    expiredAt,
-    expiredUnit,
-  );
+  return WebStorage(isBrowser ? sessionStorage : null, key, expiredAt, expiredUnit);
 }
