@@ -14,8 +14,20 @@ Angular decorator to save and restore of HTML5 Local&Session Storage
 
 install `angular-web-storage` from `npm`
 
-```
+```bash
 npm install angular-web-storage --save
+```
+
+Import the `AngularWebStorageModule` in to your root `AppModule`.
+
+```typescript
+import { AngularWebStorageModule } from 'angular-web-storage';
+@NgModule({
+  imports: [ AngularWebStorageModule ],
+  bootstrap: [AppComponent]
+})
+export class AppModule {
+}
 ```
 
 ### 2、Examples
