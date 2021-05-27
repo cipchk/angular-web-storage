@@ -1,10 +1,5 @@
 import { Component } from '@angular/core';
-import {
-  LocalStorageService,
-  SessionStorageService,
-  LocalStorage,
-  SessionStorage,
-} from 'angular-web-storage';
+import { LocalStorageService, SessionStorageService, LocalStorage, SessionStorage } from 'angular-web-storage';
 
 @Component({
   selector: 'demo',
@@ -17,10 +12,7 @@ export class DemoComponent {
   localValue2 = { text: `Hello ${+new Date()}` };
   @SessionStorage() sessionValue = `Hello ${+new Date()}`;
 
-  constructor(
-    public local: LocalStorageService,
-    public session: SessionStorageService,
-  ) {}
+  constructor(public local: LocalStorageService, public session: SessionStorageService) {}
 
   KEY = 'value';
   value: any = null;

@@ -14,7 +14,7 @@ describe('service', () => {
     const KEY = 'test_key';
 
     beforeEach(() => {
-      let store = {};
+      let store: { [key: string]: any } = {};
       spyOn(localStorage, 'getItem').and.callFake((key: string) => {
         return store[key];
       });
@@ -67,15 +67,13 @@ describe('service', () => {
     const KEY = 'test_key';
 
     beforeEach(() => {
-      let store = {};
+      let store: { [key: string]: any } = {};
       spyOn(sessionStorage, 'getItem').and.callFake((key: string) => {
         return store[key];
       });
-      spyOn(sessionStorage, 'setItem').and.callFake(
-        (key: string, value: any) => {
-          return (store[key] = value);
-        },
-      );
+      spyOn(sessionStorage, 'setItem').and.callFake((key: string, value: any) => {
+        return (store[key] = value);
+      });
       spyOn(sessionStorage, 'removeItem').and.callFake((key: string) => {
         delete store[key];
       });
