@@ -103,6 +103,6 @@
   },
   "defaultProject": "angular-web-storage",
   "cli": {
-    "defaultCollection": "@angular-eslint/schematics"
+    "schematicCollections": "@angular-eslint/schematics"
   }
 }
