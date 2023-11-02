@@ -1,37 +1,40 @@
-import { TestBed, inject } from '@angular/core/testing';
-import { AngularWebStorageModule } from '../index';
+import { TestBed } from '@angular/core/testing';
 import { LocalStorageService, SessionStorageService } from './service';
+import { LocalStorage, SessionStorage } from './decorator';
+import { Injectable } from '@angular/core';
 
 beforeEach(() => {
-  TestBed.configureTestingModule({
-    imports: [AngularWebStorageModule],
-  });
+  TestBed.configureTestingModule({ providers: [SessionStorageTest] });
 });
+
+function InitSpy(storage: Storage, store: { [key: string]: any }) {
+  spyOn(storage, 'getItem').and.callFake((key: string) => {
+    return store[key];
+  });
+  spyOn(storage, 'setItem').and.callFake((key: string, value: any) => {
+    return (store[key] = value);
+  });
+  spyOn(storage, 'removeItem').and.callFake((key: string) => {
+    delete store[key];
+  });
+  spyOn(storage, 'key').and.callFake((index: number) => {
+    return Object.keys(store)[index];
+  });
+  spyOn(storage, 'clear').and.callFake(() => {
+    store = {};
+  });
+}
 
 describe('service', () => {
   describe('localStorage', () => {
     let service: LocalStorageService;
     const KEY = 'test_key';
+    let store: { [key: string]: any } = {};
 
     beforeEach(() => {
-      let store: { [key: string]: any } = {};
-      spyOn(localStorage, 'getItem').and.callFake((key: string) => {
-        return store[key];
-      });
-      spyOn(localStorage, 'setItem').and.callFake((key: string, value: any) => {
-        return (store[key] = value);
-      });
-      spyOn(localStorage, 'removeItem').and.callFake((key: string) => {
-        delete store[key];
-      });
-      spyOn(localStorage, 'clear').and.callFake(() => {
-        store = {};
-      });
+      InitSpy(localStorage, store);
+      service = TestBed.inject(LocalStorageService);
     });
-
-    beforeEach(inject([LocalStorageService], (_s: LocalStorageService) => {
-      service = _s;
-    }));
 
     it(`should set result to 1 by called [set]`, () => {
       const value = 1;
@@ -45,11 +48,22 @@ describe('service', () => {
       expect(service.get(KEY)).toBe(value);
     });
 
-    it(`should be called [remove]`, () => {
-      const value = 1;
-      service.set(KEY, value);
-      service.remove(KEY);
-      expect(service.get(KEY)).toBeNull();
+    describe('#remove', () => {
+      it(`when use key`, () => {
+        const value = 1;
+        service.set(KEY, value);
+        service.remove(KEY);
+        expect(service.get(KEY)).toBeNull();
+      });
+      it(`when use regex`, () => {
+        service.set('key_1', 1);
+        service.set('key_2', 2);
+        expect(service.get('key_1')).toBe(1);
+        expect(service.get('key_2')).toBe(2);
+        service.remove(/key_\d+/);
+        expect(service.get('key_1')).toBeNull();
+        expect(service.get('key_2')).toBeNull();
+      });
     });
 
     it(`should be expired data`, (done: any) => {
@@ -65,26 +79,13 @@ describe('service', () => {
   describe('sessionStorage', () => {
     let service: SessionStorageService;
     const KEY = 'test_key';
+    let store: { [key: string]: any } = {};
 
     beforeEach(() => {
-      let store: { [key: string]: any } = {};
-      spyOn(sessionStorage, 'getItem').and.callFake((key: string) => {
-        return store[key];
-      });
-      spyOn(sessionStorage, 'setItem').and.callFake((key: string, value: any) => {
-        return (store[key] = value);
-      });
-      spyOn(sessionStorage, 'removeItem').and.callFake((key: string) => {
-        delete store[key];
-      });
-      spyOn(sessionStorage, 'clear').and.callFake(() => {
-        store = {};
-      });
-    });
+      InitSpy(sessionStorage, store);
 
-    beforeEach(inject([SessionStorageService], (_s: SessionStorageService) => {
-      service = _s;
-    }));
+      service = TestBed.inject(SessionStorageService);
+    });
 
     it(`should set result to 1 by called [set]`, () => {
       const value = 1;
@@ -115,4 +116,21 @@ describe('service', () => {
       }, 100);
     });
   });
+  describe('Decorator', () => {
+    let srv: SessionStorageTest;
+
+    it('should be working', () => {
+      srv = TestBed.inject(SessionStorageTest);
+      srv.nullValue = null;
+      srv.localValue = { ...srv.localValue, a: 1 };
+      expect(srv.localValue.a).toBe(1);
+    });
+  });
 });
+
+@Injectable()
+class SessionStorageTest {
+  @LocalStorage() localValue: any = { text: `Hello ${+new Date()}` };
+  @LocalStorage() nullValue: null | 1 = null;
+  @SessionStorage() sessionValue: string = `Hello ${+new Date()}`;
+}

@@ -1,9 +1,6 @@
 import { ExpiredUnit, StorageUtil, isBrowser } from './util';
 
-interface ICache {
-  [key: string]: boolean;
-}
-const cache: ICache = {};
+const cache: { [key: string]: boolean } = {};
 
 function WebStorage(
   storage: Storage | null,
