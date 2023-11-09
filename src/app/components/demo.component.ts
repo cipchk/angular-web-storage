@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { LocalStorageService, SessionStorageService, LocalStorage, SessionStorage, AngularWebStorageModule } from 'angular-web-storage';
+import { LocalStorageService, SessionStorageService, LocalStorage, SessionStorage } from 'angular-web-storage';
 
 @Component({
   selector: 'demo',
   templateUrl: './demo.component.html',
   standalone: true,
-  imports: [FormsModule, CommonModule, AngularWebStorageModule],
+  imports: [FormsModule, CommonModule],
 })
 export class DemoComponent {
   @LocalStorage() localValue = { text: `Hello ${+new Date()}` };

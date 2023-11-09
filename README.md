@@ -18,18 +18,6 @@ install `angular-web-storage` from `npm`
 npm install angular-web-storage --save
 ```
 
-Import the `AngularWebStorageModule` in to your root `AppModule`.
-
-```typescript
-import { AngularWebStorageModule } from 'angular-web-storage';
-@NgModule({
-  imports: [ AngularWebStorageModule ],
-  bootstrap: [AppComponent]
-})
-export class AppModule {
-}
-```
-
 ### 2、Examples
 
 1. using `LocalStorage` or `SessionStorage` decorator.
@@ -39,8 +27,8 @@ import { Component } from '@angular/core';
 import { LocalStorageService, SessionStorageService, LocalStorage, SessionStorage } from 'angular-web-storage';
 
 @Component({
-    selector: 'demo',
-    templateUrl: './demo.component.html'
+  selector: 'demo',
+  templateUrl: './demo.component.html'
 })
 export class DemoComponent {
   @LocalStorage() localValue: Object = { text: `Hello ${+new Date}`};

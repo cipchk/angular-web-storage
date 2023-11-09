@@ -81,8 +81,9 @@ export class StorageUtil {
         return now + 1000 * 60 * 60 * 24 * 365 * val;
       case 't': // 自定义
         return now + val;
+      default:
+        return 0;
     }
-    return 0;
   }
 
   private static stringify(value: any): string {
