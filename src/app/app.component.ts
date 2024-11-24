@@ -12,7 +12,6 @@ import { DemoComponent } from './components/demo.component';
     <demo></demo>
   `,
   encapsulation: ViewEncapsulation.None,
-  standalone: true,
   imports: [DemoComponent],
 })
 export class AppComponent {}
