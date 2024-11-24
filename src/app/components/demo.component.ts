@@ -6,7 +6,6 @@ import { LocalStorageService, SessionStorageService, LocalStorage, SessionStorag
 @Component({
   selector: 'demo',
   templateUrl: './demo.component.html',
-  standalone: true,
   imports: [FormsModule, CommonModule],
 })
 export class DemoComponent {
