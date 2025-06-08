@@ -3,13 +3,14 @@ import { StorageUtil, ExpiredUnit, isBrowser } from './util';
 
 @Injectable()
 export class StorageService {
-  constructor(private storage: Storage | null) {}
+  // eslint-disable-next-line @angular-eslint/prefer-inject
+  constructor(private storage: Storage | null) { }
 
   get(key: string): any {
     return StorageUtil.get(this.storage, key);
   }
 
-  set(key: string, value: any, expiredAt: number = 0, expiredUnit: ExpiredUnit = 'd'): void {
+  set(key: string, value: any, expiredAt = 0, expiredUnit: ExpiredUnit = 'd'): void {
     return StorageUtil.set(this.storage, key, value, expiredAt, expiredUnit);
   }
 

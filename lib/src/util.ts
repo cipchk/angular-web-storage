@@ -34,7 +34,7 @@ export class StorageUtil {
     return value._value || null;
   }
 
-  static set(storage: Storage | null, key: string, value: any, expiredAt: number = 0, expiredUnit: ExpiredUnit = 't'): void {
+  static set(storage: Storage | null, key: string, value: any, expiredAt = 0, expiredUnit: ExpiredUnit = 't'): void {
     if (storage == null) {
       return;
     }
@@ -93,7 +93,7 @@ export class StorageUtil {
   private static parse(text: string): any {
     try {
       return JSON.parse(text) || null;
-    } catch (e) {
+    } catch {
       return text;
     }
   }
