@@ -7,7 +7,7 @@ beforeEach(() => {
   TestBed.configureTestingModule({ providers: [SessionStorageTest] });
 });
 
-function InitSpy(storage: Storage, store: { [key: string]: any }) {
+function InitSpy(storage: Storage, store: Record<string, any>) {
   spyOn(storage, 'getItem').and.callFake((key: string) => {
     return store[key];
   });
@@ -29,7 +29,7 @@ describe('service', () => {
   describe('localStorage', () => {
     let service: LocalStorageService;
     const KEY = 'test_key';
-    let store: { [key: string]: any } = {};
+    const store: Record<string, any> = {};
 
     beforeEach(() => {
       InitSpy(localStorage, store);
@@ -79,7 +79,7 @@ describe('service', () => {
   describe('sessionStorage', () => {
     let service: SessionStorageService;
     const KEY = 'test_key';
-    let store: { [key: string]: any } = {};
+    const store: Record<string, any> = {};
 
     beforeEach(() => {
       InitSpy(sessionStorage, store);
@@ -132,5 +132,5 @@ describe('service', () => {
 class SessionStorageTest {
   @LocalStorage() localValue: any = { text: `Hello ${+new Date()}` };
   @LocalStorage() nullValue: null | 1 = null;
-  @SessionStorage() sessionValue: string = `Hello ${+new Date()}`;
+  @SessionStorage() sessionValue = `Hello ${+new Date()}`;
 }

@@ -1,11 +1,11 @@
 import { ExpiredUnit, StorageUtil, isBrowser } from './util';
 
-const cache: { [key: string]: boolean } = {};
+const cache: Record<string, boolean> = {};
 
 function WebStorage(
   storage: Storage | null,
   key?: string,
-  expiredAt: number = 0,
+  expiredAt = 0,
   expiredUnit: ExpiredUnit = 'd',
 ): (target: {}, propertyName: string) => void {
   return (target: {}, propertyName: string): void => {
@@ -39,7 +39,7 @@ function WebStorage(
  */
 export function LocalStorage(
   key?: string,
-  expiredAt: number = 0,
+  expiredAt = 0,
   expiredUnit: ExpiredUnit = 't',
 ): (target: {}, propertyName: string) => void {
   return WebStorage(isBrowser ? localStorage : null, key, expiredAt, expiredUnit);
@@ -53,7 +53,7 @@ export function LocalStorage(
  */
 export function SessionStorage(
   key?: string,
-  expiredAt: number = 0,
+  expiredAt = 0,
   expiredUnit: ExpiredUnit = 't',
 ): (target: {}, propertyName: string) => void {
   return WebStorage(isBrowser ? sessionStorage : null, key, expiredAt, expiredUnit);
