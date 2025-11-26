@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { StorageUtil, ExpiredUnit, isBrowser } from './util';
 
+/** @inner */
 @Injectable()
 export class StorageService {
   // eslint-disable-next-line @angular-eslint/prefer-inject

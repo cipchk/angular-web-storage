@@ -7,8 +7,8 @@ function WebStorage(
   key?: string,
   expiredAt = 0,
   expiredUnit: ExpiredUnit = 'd',
-): (target: {}, propertyName: string) => void {
-  return (target: {}, propertyName: string): void => {
+): (target: object, propertyName: string) => void {
+  return (target: object, propertyName: string): void => {
     key = key || propertyName;
     Object.defineProperty(target, propertyName, {
       get: () => {
@@ -41,7 +41,7 @@ export function LocalStorage(
   key?: string,
   expiredAt = 0,
   expiredUnit: ExpiredUnit = 't',
-): (target: {}, propertyName: string) => void {
+): (target: object, propertyName: string) => void {
   return WebStorage(isBrowser ? localStorage : null, key, expiredAt, expiredUnit);
 }
 
@@ -55,6 +55,6 @@ export function SessionStorage(
   key?: string,
   expiredAt = 0,
   expiredUnit: ExpiredUnit = 't',
-): (target: {}, propertyName: string) => void {
+): (target: object, propertyName: string) => void {
   return WebStorage(isBrowser ? sessionStorage : null, key, expiredAt, expiredUnit);
 }

@@ -1,4 +1,5 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { AppComponent } from './app/app.component';
+import { App } from './app/app';
+import { provideZonelessChangeDetection } from '@angular/core';
 
-bootstrapApplication(AppComponent).catch((err) => console.error(err));
+bootstrapApplication(App, { providers: [provideZonelessChangeDetection()] }).catch((err) => console.error(err));
