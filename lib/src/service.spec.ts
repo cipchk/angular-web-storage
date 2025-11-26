@@ -8,19 +8,19 @@ beforeEach(() => {
 });
 
 function InitSpy(storage: Storage, store: Record<string, any>) {
-  spyOn(storage, 'getItem').and.callFake((key: string) => {
+  vi.spyOn(storage, 'getItem').mockImplementation((key: string) => {
     return store[key];
   });
-  spyOn(storage, 'setItem').and.callFake((key: string, value: any) => {
+  vi.spyOn(storage, 'setItem').mockImplementation((key: string, value: any) => {
     return (store[key] = value);
   });
-  spyOn(storage, 'removeItem').and.callFake((key: string) => {
+  vi.spyOn(storage, 'removeItem').mockImplementation((key: string) => {
     delete store[key];
   });
-  spyOn(storage, 'key').and.callFake((index: number) => {
+  vi.spyOn(storage, 'key').mockImplementation((index: number) => {
     return Object.keys(store)[index];
   });
-  spyOn(storage, 'clear').and.callFake(() => {
+  vi.spyOn(storage, 'clear').mockImplementation(() => {
     store = {};
   });
 }
