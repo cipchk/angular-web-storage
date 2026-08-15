@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+
 import { StorageUtil, ExpiredUnit, isBrowser } from './util';
 
 /** @inner */
 @Injectable()
 export class StorageService {
   // eslint-disable-next-line @angular-eslint/prefer-inject
-  constructor(private storage: Storage | null) { }
+  constructor(private storage: Storage | null) {}
 
   get(key: string): any {
     return StorageUtil.get(this.storage, key);
@@ -35,7 +36,7 @@ export class StorageService {
       }
       next = StorageUtil.key(this.storage, ++index);
     }
-    ls.forEach((v) => StorageUtil.remove(this.storage, v));
+    ls.forEach(v => StorageUtil.remove(this.storage, v));
   }
 
   clear(): void {

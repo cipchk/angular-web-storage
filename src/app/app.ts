@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { Demo } from './demo';
 
 @Component({
@@ -9,8 +10,8 @@ import { Demo } from './demo';
       Angular decorator to save and restore of HTML5 Local&Session Storage，有关更多细节见
       <a href="https://github.com/cipchk/angular-web-storage/blob/master/README.md" target="_blank">README.md</a>
     </p>
-    <demo></demo>
+    <demo />
   `,
-  imports: [Demo],
+  imports: [Demo]
 })
-export class App { }
+export class App {}
