@@ -1,38 +1,20 @@
-import { TestBed } from '@angular/core/testing';
-import { LocalStorageService, SessionStorageService } from './service';
-import { LocalStorage, SessionStorage } from './decorator';
 import { Injectable } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+
+import { LocalStorage, SessionStorage } from './decorator';
+import { LocalStorageService, SessionStorageService, StorageService } from './service';
 
 beforeEach(() => {
   TestBed.configureTestingModule({ providers: [SessionStorageTest] });
 });
 
-function InitSpy(storage: Storage, store: Record<string, any>) {
-  vi.spyOn(storage, 'getItem').mockImplementation((key: string) => {
-    return store[key];
-  });
-  vi.spyOn(storage, 'setItem').mockImplementation((key: string, value: any) => {
-    return (store[key] = value);
-  });
-  vi.spyOn(storage, 'removeItem').mockImplementation((key: string) => {
-    delete store[key];
-  });
-  vi.spyOn(storage, 'key').mockImplementation((index: number) => {
-    return Object.keys(store)[index];
-  });
-  vi.spyOn(storage, 'clear').mockImplementation(() => {
-    store = {};
-  });
-}
-
 describe('service', () => {
   describe('localStorage', () => {
     let service: LocalStorageService;
     const KEY = 'test_key';
-    const store: Record<string, any> = {};
 
     beforeEach(() => {
-      InitSpy(localStorage, store);
+      localStorage.clear();
       service = TestBed.inject(LocalStorageService);
     });
 
@@ -75,15 +57,19 @@ describe('service', () => {
         done();
       }, 100);
     });
+
+    it(`should be called [clear]`, () => {
+      service.set(KEY, 1);
+      service.clear();
+      expect(service.get(KEY)).toBeNull();
+    });
   });
   describe('sessionStorage', () => {
     let service: SessionStorageService;
     const KEY = 'test_key';
-    const store: Record<string, any> = {};
 
     beforeEach(() => {
-      InitSpy(sessionStorage, store);
-
+      sessionStorage.clear();
       service = TestBed.inject(SessionStorageService);
     });
 
@@ -115,6 +101,12 @@ describe('service', () => {
         done();
       }, 100);
     });
+
+    it(`should be called [clear]`, () => {
+      service.set(KEY, 1);
+      service.clear();
+      expect(service.get(KEY)).toBeNull();
+    });
   });
   describe('Decorator', () => {
     let srv: SessionStorageTest;
@@ -128,9 +120,27 @@ describe('service', () => {
   });
 });
 
+describe('StorageService（null storage 降级路径）', () => {
+  let service: StorageService;
+
+  beforeEach(() => {
+    service = new StorageService(null);
+  });
+
+  it('get/set/remove/clear 对 null storage 不抛错', () => {
+    expect(service.get('k')).toBeNull();
+    expect(() => service.set('k', 1)).not.toThrow();
+    expect(() => service.remove('k')).not.toThrow();
+    expect(() => service.remove(/k/)).not.toThrow();
+    expect(() => service.clear()).not.toThrow();
+  });
+});
+
 @Injectable()
 class SessionStorageTest {
-  @LocalStorage() localValue: any = { text: `Hello ${+new Date()}` };
-  @LocalStorage() nullValue: null | 1 = null;
-  @SessionStorage() sessionValue = `Hello ${+new Date()}`;
+  // `declare` 避免 useDefineForClassFields 在实例上生成自有属性，
+  // 使 prototype 上的装饰器 accessor 真正生效
+  @LocalStorage() declare localValue: any;
+  @LocalStorage() declare nullValue: null | 1;
+  @SessionStorage() declare sessionValue: any;
 }

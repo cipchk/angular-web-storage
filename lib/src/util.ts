@@ -26,7 +26,12 @@ export class StorageUtil {
     if (value === null) {
       return null;
     }
-    if (typeof value === 'object' && typeof value._expired !== 'undefined' && value._expired !== 0 && +new Date() > value._expired) {
+    if (
+      typeof value === 'object' &&
+      typeof value._expired !== 'undefined' &&
+      value._expired !== 0 &&
+      +new Date() > value._expired
+    ) {
       StorageUtil.remove(storage, key);
       return null;
     }
@@ -42,8 +47,8 @@ export class StorageUtil {
       key,
       StorageUtil.stringify({
         _expired: StorageUtil.getExpired(expiredAt, expiredUnit),
-        _value: value,
-      }),
+        _value: value
+      })
     );
   }
 

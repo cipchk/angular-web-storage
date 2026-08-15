@@ -6,7 +6,7 @@ function WebStorage(
   storage: Storage | null,
   key?: string,
   expiredAt = 0,
-  expiredUnit: ExpiredUnit = 'd',
+  expiredUnit: ExpiredUnit = 'd'
 ): (target: object, propertyName: string) => void {
   return (target: object, propertyName: string): void => {
     key = key || propertyName;
@@ -26,7 +26,7 @@ function WebStorage(
         StorageUtil.set(storage, key as string, value, expiredAt, expiredUnit);
       },
       enumerable: true,
-      configurable: true,
+      configurable: true
     });
   };
 }
@@ -40,7 +40,7 @@ function WebStorage(
 export function LocalStorage(
   key?: string,
   expiredAt = 0,
-  expiredUnit: ExpiredUnit = 't',
+  expiredUnit: ExpiredUnit = 't'
 ): (target: object, propertyName: string) => void {
   return WebStorage(isBrowser ? localStorage : null, key, expiredAt, expiredUnit);
 }
@@ -54,7 +54,7 @@ export function LocalStorage(
 export function SessionStorage(
   key?: string,
   expiredAt = 0,
-  expiredUnit: ExpiredUnit = 't',
+  expiredUnit: ExpiredUnit = 't'
 ): (target: object, propertyName: string) => void {
   return WebStorage(isBrowser ? sessionStorage : null, key, expiredAt, expiredUnit);
 }

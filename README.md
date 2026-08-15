@@ -31,10 +31,10 @@ import { LocalStorageService, SessionStorageService, LocalStorage, SessionStorag
   templateUrl: './demo.component.html'
 })
 export class DemoComponent {
-  @LocalStorage() localValue: Object = { text: `Hello ${+new Date}`};
+  @LocalStorage() localValue: Object = { text: `Hello ${+new Date()}` };
   // 设置存储KEY，以及10个小时后过期
-  @LocalStorage('newKey', 10, 'h') localValue2: Object = { text: `Hello ${+new Date}`};
-  @SessionStorage() sessionValue: string = `Hello ${+new Date}`;
+  @LocalStorage('newKey', 10, 'h') localValue2: Object = { text: `Hello ${+new Date()}` };
+  @SessionStorage() sessionValue: string = `Hello ${+new Date()}`;
 }
 ```
 
@@ -45,17 +45,20 @@ import { Component } from '@angular/core';
 import { LocalStorageService, SessionStorageService, LocalStorage, SessionStorage } from 'angular-web-storage';
 
 @Component({
-    selector: 'demo',
-    templateUrl: './demo.component.html'
+  selector: 'demo',
+  templateUrl: './demo.component.html'
 })
 export class DemoComponent {
-  constructor(private local: LocalStorageService, private session: SessionStorageService) { }
+  constructor(
+    private local: LocalStorageService,
+    private session: SessionStorageService
+  ) {}
 
   KEY = 'value';
   value: any = null;
 
   set(expired: number = 0) {
-    this.local.set(this.KEY, { a: 1, now: +new Date }, expired, 's');
+    this.local.set(this.KEY, { a: 1, now: +new Date() }, expired, 's');
   }
 
   remove() {
@@ -70,18 +73,17 @@ export class DemoComponent {
     this.local.clear();
   }
 }
-
 ```
 
 ### Expired Time Unit
 
-+ `s` Second.
-+ `m` Minute.
-+ `h` Hour.
-+ `d` Day.
-+ `w` Week(equar 7 Day).
-+ `y` Year.
-+ `t` Custom(unit: millisecond).
+- `s` Second.
+- `m` Minute.
+- `h` Hour.
+- `d` Day.
+- `w` Week(equar 7 Day).
+- `y` Year.
+- `t` Custom(unit: millisecond).
 
 ## Troubleshooting
 

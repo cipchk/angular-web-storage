@@ -30,7 +30,11 @@
         "test": {
           "builder": "@angular/build:unit-test",
           "options": {
-            "tsConfig": "lib/tsconfig.spec.json"
+            "tsConfig": "lib/tsconfig.spec.json",
+            "setupFiles": [
+              "lib/test-setup.ts"
+            ],
+            "isolate": true
           }
         },
         "lint": {
@@ -42,7 +46,7 @@
               "src/**/*.ts",
               "src/**/*.html"
             ],
-            "eslintConfig": "eslint.config.js"
+            "eslintConfig": "eslint.config.mjs"
           }
         }
       }

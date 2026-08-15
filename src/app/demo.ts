@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+
 import { LocalStorageService, LocalStorage, SessionStorage } from 'angular-web-storage';
 
 @Component({
@@ -12,29 +13,15 @@ import { LocalStorageService, LocalStorage, SessionStorage } from 'angular-web-s
         <p>localValue: {{ localValue | json }}</p>
         <p>value: {{ value | json }}</p>
         <div class="mb-3">
-          <button type="button" (click)="get()" class="btn btn-primary btn-sm">
-            get
-          </button>
-          <button type="button" (click)="set()" class="btn btn-primary btn-sm">
-            set
-          </button>
-          <button type="button" (click)="set(5)" class="btn btn-primary btn-sm">
-            set in 5 second expired!
-          </button>
-          <button type="button" (click)="remove()" class="btn btn-primary btn-sm">
-            remove
-          </button>
-          <button type="button" (click)="clear()" class="btn btn-primary btn-sm">
-            clear
-          </button>
+          <button type="button" (click)="get()" class="btn btn-primary btn-sm"> get </button>
+          <button type="button" (click)="set()" class="btn btn-primary btn-sm"> set </button>
+          <button type="button" (click)="set(5)" class="btn btn-primary btn-sm"> set in 5 second expired! </button>
+          <button type="button" (click)="remove()" class="btn btn-primary btn-sm"> remove </button>
+          <button type="button" (click)="clear()" class="btn btn-primary btn-sm"> clear </button>
         </div>
         <div class="mb-3">
-          <button type="button" (click)="batchSet()" class="btn btn-primary btn-sm">
-            batch set
-          </button>
-          <button type="button" (click)="batchRemove()" class="btn btn-primary btn-sm">
-            batch remove
-          </button>
+          <button type="button" (click)="batchSet()" class="btn btn-primary btn-sm"> batch set </button>
+          <button type="button" (click)="batchRemove()" class="btn btn-primary btn-sm"> batch remove </button>
         </div>
       </div>
     </div>
@@ -45,7 +32,7 @@ import { LocalStorageService, LocalStorage, SessionStorage } from 'angular-web-s
       </div>
     </div>
   `,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule]
 })
 export class Demo {
   private readonly local = inject(LocalStorageService);
